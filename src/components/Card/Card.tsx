@@ -1,4 +1,4 @@
-import "./Card.css";
+import "../../styles/App.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTelegram} from "@fortawesome/free-brands-svg-icons";
 import {faVk} from "@fortawesome/free-brands-svg-icons";
