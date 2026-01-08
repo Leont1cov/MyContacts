@@ -1,20 +1,14 @@
 import "../../styles/App.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTelegram} from "@fortawesome/free-brands-svg-icons";
-import {faVk} from "@fortawesome/free-brands-svg-icons";
-import {faGithub} from "@fortawesome/free-brands-svg-icons";
-import {faYoutube} from "@fortawesome/free-brands-svg-icons";
-import {faTwitter} from "@fortawesome/free-brands-svg-icons";
-import {faFacebook} from "@fortawesome/free-brands-svg-icons";
-import {faLinkedin} from "@fortawesome/free-brands-svg-icons";
-import {faTiktok} from "@fortawesome/free-brands-svg-icons";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 type CardProps = {
     text: string;
-    icon?: typeof faTelegram | typeof faVk | typeof faGithub | typeof faYoutube | typeof faTwitter | typeof faFacebook | typeof faLinkedin | typeof faTiktok;
+    icon: IconDefinition;
+    iconColor?: string;
 }
 
-const Card = ({ text, icon }:CardProps) => {
+const Card = ({ text, icon, iconColor }:CardProps) => {
     if (!icon) return null;
 
     return (
@@ -24,7 +18,11 @@ const Card = ({ text, icon }:CardProps) => {
             text-xl text-center p-5 border border-solid border-gray-300 rounded-lg
             hover:bg-gray-200 transition duration-200 ease-in-out active:bg-gray-300 cursor-pointer">
                 <div className="text-center">
-                    <FontAwesomeIcon icon={icon} className="text-blue-600 text-2xl" />
+                    <FontAwesomeIcon
+                        icon={icon}
+                        className="text-2xl"
+                        style={{ color: iconColor }}
+                    />
                 </div>
 
                 {text ?? "Здесь будет ваш текст!"}

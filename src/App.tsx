@@ -10,8 +10,8 @@ function App() {
         <div className="container p-10 flex flex-col gap-3">
             <Avatar/>
             <Card text={"Это мой телеграмм, пишите, звоните"} icon={faTelegram}/>
-            <Card text={"Тут мой ВК подписывайтесь"} icon={faVk}/>
-            <Card text={"Мой репозитоий"} icon={faGithub}/>
+            <Card text={"Тут мой ВК подписывайтесь"} icon={faVk} iconColor="#0000FF"/>
+            <Card text={"Мой репозитоий"} icon={faGithub} iconColor="#000000"/>
             <Card text={"Мой ютуб канал"} icon={faYoutube}/>
             <Card text={"Мой Facebook"} icon={faFacebook}/>
             <Card text={"Мой LinkedIn"} icon={faLinkedin}/>
