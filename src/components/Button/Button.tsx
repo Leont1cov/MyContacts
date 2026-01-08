@@ -9,7 +9,8 @@ type ButtonProps = {
 const Button = ({ children, onClick, type }:ButtonProps) => {
     return (
         <>
-            <button className="border border-solid border-gray-300 rounded-lg max-w-90 p-2" onClick={onClick} type={type}>
+            <button className="border border-solid border-gray-300 rounded-lg max-w-90 p-2 hover:bg-gray-200
+            transition duration-200 ease-in-out active:bg-gray-300 cursor-pointer" onClick={onClick} type={type}>
                 {children}
             </button>
         </>

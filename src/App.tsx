@@ -16,6 +16,7 @@ function App() {
             <Card text={"Мой Facebook"} icon={faFacebook}/>
             <Card text={"Мой LinkedIn"} icon={faLinkedin}/>
             <Input type="text" placeholder="Создать новый контакт"/>
+            <Input type="file" />
             <Button type="button" children="Click"/>
         </div>
     </>

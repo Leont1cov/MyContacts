@@ -21,7 +21,8 @@ const Card = ({ text, icon }:CardProps) => {
         <>
             {/*Тут будет ссылка на нужную соц.сеть*/}
             <a href="#" className="flex justify-center items-center gap-3 max-w-90
-            text-xl text-center p-5 border border-solid border-gray-300 rounded-lg hover:bg-gray-200 transition duration-200 ease-in-out">
+            text-xl text-center p-5 border border-solid border-gray-300 rounded-lg
+            hover:bg-gray-200 transition duration-200 ease-in-out active:bg-gray-300 cursor-pointer">
                 <div className="text-center">
                     <FontAwesomeIcon icon={icon} className="text-blue-600 text-2xl" />
                 </div>
