@@ -2,6 +2,7 @@ import Card from "./components/Card/Card.tsx";
 import {faFacebook, faGithub, faLinkedin, faTelegram, faVk, faYoutube} from "@fortawesome/free-brands-svg-icons";
 import Avatar from "./components/Avatar/Avatar.tsx";
 import Input from "./components/Input/Input.tsx";
+import Button from "./components/Button/Button.tsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Card text={"Мой Facebook"} icon={faFacebook}/>
             <Card text={"Мой LinkedIn"} icon={faLinkedin}/>
             <Input type="text" placeholder="Создать новый контакт"/>
+            <Button type="button" children="Click"/>
         </div>
     </>
   )
