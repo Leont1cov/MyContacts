@@ -1,24 +1,15 @@
-import Card from "./components/Card/Card.tsx";
-import {faFacebook, faGithub, faLinkedin, faTelegram, faVk, faYoutube} from "@fortawesome/free-brands-svg-icons";
-import Avatar from "./components/Avatar/Avatar.tsx";
-import Input from "./components/Input/Input.tsx";
-import Button from "./components/Button/Button.tsx";
+import { Routes, Route } from 'react-router-dom'
+import Landing from "./pages/Landing/Landing.tsx";
+import "./styles/App.css";
 
 function App() {
   return (
     <>
-        <div className="container p-10 flex flex-col gap-3">
-            <Avatar/>
-            <Card text={"Это мой телеграмм, пишите, звоните"} icon={faTelegram}/>
-            <Card text={"Тут мой ВК подписывайтесь"} icon={faVk} iconColor="#0000FF"/>
-            <Card text={"Мой репозитоий"} icon={faGithub} iconColor="#000000"/>
-            <Card text={"Мой ютуб канал"} icon={faYoutube}/>
-            <Card text={"Мой Facebook"} icon={faFacebook}/>
-            <Card text={"Мой LinkedIn"} icon={faLinkedin}/>
-            <Input type="text" placeholder="Создать новый контакт"/>
-            <Input type="file" />
-            <Button type="button" children="Click"/>
-        </div>
+        <>
+            <Routes>
+                <Route path="/" element={<Landing/>} />
+            </Routes>
+        </>
     </>
   )
 }
