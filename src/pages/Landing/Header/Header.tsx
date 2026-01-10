@@ -11,8 +11,14 @@ const Header = () => {
 
     return (
         <>
-            <header className="flex flex-row smd:flex-row gap-5 lg:gap-20 justify-between items-center
-                px-5 sm:px-10 lg:px-30 py-5 border-b border-solid border-gray-200 relative">
+            <header
+                className="
+                    flex flex-row gap-5 lg:gap-20 justify-between items-center
+                    px-5 sm:px-10 lg:px-30 py-5
+                    fixed w-full z-40
+                    bg-white/70 backdrop-blur-md
+                    border-b border-gray-200
+                  ">
 
                 {/* Logo */}
                 <a className="flex items-center gap-3" href="/">
@@ -49,30 +55,47 @@ const Header = () => {
                         />
                     </a>
                 </div>
+            </header>
 
-                {/* Mobile menu */}
-                {isOpen && (
-                    <div className="fixed inset-0 bg-white z-50 flex flex-col gap-5 p-5 lg:hidden">
+            {/* MOBILE MENU */}
+            {isOpen && (
+                <div className="fixed inset-0 z-[999] lg:hidden transition duration-200 ease-in-out">
+                    {/* Overlay */}
+                    <div
+                        className="absolute inset-0 bg-black/40"
+                        onClick={() => setIsOpen(false)}
+                    />
+
+                    <div
+                        className="
+                          absolute top-0 right-0 h-full
+                          w-4/5 max-w-sm
+                          bg-white
+                          p-6
+                          flex flex-col gap-6
+                        ">
                         <Button
                             onClick={() => setIsOpen(false)}
-                            className="self-end mb-5"
+                            className="self-end"
                             type="button"
                         >
                             <FontAwesomeIcon icon={faXmark} />
                         </Button>
 
-                        <a className="font-medium hover:text-orange-700 transition duration-200 ease-in-out" href="#">
-                            О Приложении
-                        </a>
-                        <a className="font-medium hover:text-orange-700 transition duration-200 ease-in-out" href="#">
-                            Контакты
-                        </a>
-                        <a className="font-medium hover:text-orange-700 transition duration-200 ease-in-out" href="#">
-                            GitHub
-                        </a>
+                        <nav className="flex flex-col gap-4 text-lg">
+                            <a className="hover:text-orange-700 transition" href="#">
+                                О Приложении
+                            </a>
+                            <a className="hover:text-orange-700 transition" href="#">
+                                Контакты
+                            </a>
+                            <a className="hover:text-orange-700 transition" href="#">
+                                GitHub
+                            </a>
+                        </nav>
                     </div>
-                )}
-            </header>
+                </div>
+            )}
         </>
     )
 }
