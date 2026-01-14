@@ -4,7 +4,7 @@ import ShinyText from './ReactBits/ShinyText';
 const Hero = () => {
     return (
         <>
-            <div className="flex flex-col mt-15 px-5 sm:px-10 lg:px-30 gap-8 bg-white">
+            <div className="flex flex-col justify-center items-center text-center mt-15 px-5 sm:px-10 lg:px-30 gap-8 bg-white">
                 {/* Заголовок */}
                 <ShinyText
                     text="MyContacts"
