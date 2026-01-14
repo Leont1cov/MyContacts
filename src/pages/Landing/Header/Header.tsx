@@ -5,6 +5,7 @@ import {faBurger} from "@fortawesome/free-solid-svg-icons";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../components/Button/Button.tsx";
 import {useState} from "react";
+import ShinyText from "../Hero/ReactBits/ShinyText.tsx";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,9 +22,20 @@ const Header = () => {
                   ">
 
                 {/* Logo */}
-                <a className="flex items-center gap-3" href="/">
+                <a className="flex items-center relative" href="/">
                     <img className="w-16 h-16 sm:w-20 sm:h-20" src="/Logo/MyContactsLogo_tranparent.png" alt="MyContacts Logo" />
-                    <h1 className="font-normal text-xl sm:text-2xl">MyContacts</h1>
+                    <ShinyText
+                        text="MyContacts"
+                        speed={2}
+                        delay={0}
+                        color="#2A2A2A"
+                        shineColor="#FFD8A8"
+                        spread={120}
+                        direction="left"
+                        yoyo={false}
+                        pauseOnHover={false}
+                        className={"font-normal text-xl sm:text-2xl absolute left-full"}
+                    />
                 </a>
 
                 {/* Navigation */}
