@@ -1,5 +1,6 @@
 import Button from "../../../components/Button/Button.tsx";
 import ShinyText from './ReactBits/ShinyText';
+import { Link } from "react-router-dom";
 
 const Hero = () => {
     return (
@@ -28,9 +29,12 @@ const Hero = () => {
                     Все ваши контакты в одном удобном месте. Управляйте, находите и сохраняйте — без хаоса.
                 </p>
 
-                <Button className="mt-10 animate-[fadeUp_0.6s_ease-out_forwards]">
-                    Попробовать
-                </Button>
+                <Link to="/login">
+                    <Button className="mt-10 animate-[fadeUp_0.6s_ease-out_forwards]">
+                        Попробовать
+                    </Button>
+                </Link>
+
             </div>
         </>
     )
