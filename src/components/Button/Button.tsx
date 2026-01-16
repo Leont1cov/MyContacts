@@ -10,6 +10,7 @@ type ButtonProps = {
     className?: string;
     icon?: IconDefinition;
     iconColor?: string;
+    disabled?: boolean;
 }
 
 const Button = ({ children, onClick, type, className, icon, iconColor }:ButtonProps) => {
