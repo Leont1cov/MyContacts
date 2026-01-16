@@ -1,3 +1,4 @@
+import { useState, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -25,7 +26,25 @@ const socials = [
     { name: "YouTube", icon: faYoutube, color: "#FF0000" },
 ];
 
+const detectSocial = (url: string) => {
+    if (url.includes("facebook.com")) return "Facebook";
+    if (url.includes("github.com")) return "GitHub";
+    if (url.includes("linkedin.com")) return "LinkedIn";
+    if (url.includes("t.me")) return "Telegram";
+    if (url.includes("vk.com")) return "VK";
+    if (url.includes("youtube.com") || url.includes("youtu.be")) return "YouTube";
+    return null;
+};
+
 const ProfileModal = ({ isOpen, onClose }: Props) => {
+    const [url, setUrl] = useState("");
+    const [label, setLabel] = useState("");
+
+    const detected = useMemo(() => {
+        const name = detectSocial(url);
+        return socials.find(s => s.name === name) || null;
+    }, [url]);
+
     if (!isOpen) return null;
 
     return (
@@ -33,63 +52,89 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
             {/* Overlay */}
             <div
                 className="absolute inset-0 bg-black/40"
-                onClick={onClose}
-            />
+                onClick={onClose}/>
 
             {/* Modal */}
             <div
                 className="
                   fixed bottom-0 left-0 right-0
-                  sm:top-1/2 sm:left-1/2 sm:bottom-auto sm:right-auto
-                  sm:-translate-x-1/2 sm:-translate-y-1/2
-
+                  sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2
                   w-full sm:w-[420px]
                   h-[85vh] sm:h-auto
                   bg-white
                   rounded-t-2xl sm:rounded-2xl
                   p-5 sm:p-6
-
-                  flex flex-col
-                  animate-[fadeUp_0.25s_ease-out]
+                  flex flex-col gap-5
                 ">
                 {/* Header */}
                 <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-medium">
-                        Добавить ссылку
-                    </h2>
-
-                    <button
-                        onClick={onClose}
-                        className="text-gray-400 hover:text-gray-700 transition"
-                    >
-                        <FontAwesomeIcon icon={faXmark} className="text-xl" />
+                    <h2 className="text-lg font-medium">Добавить ссылку</h2>
+                    <button onClick={onClose}>
+                        <FontAwesomeIcon icon={faXmark} className="text-xl text-gray-400" />
                     </button>
                 </div>
 
-                {/* Content */}
-                <div className="mt-6 flex flex-col gap-3 overflow-y-auto">
-                    {socials.map(({ name, icon, color }) => (
-                        <Button
-                            key={name}
-                            icon={icon}
-                            iconColor={color}
-                            className="
-                                flex
-                                justify-start
-                                items-center
+                {/* URL input */}
+                <input
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    placeholder="Вставьте ссылку"
+                    className="
+                        w-full
+                        border
+                        border-gray-300
+                        rounded-xl
+                        px-4 py-3
+                        outline-none
+                        focus:border-orange-500"/>
 
-                                gap-2
-                                py-3
-                                text-xl
-                              "
-                            onClick={() => {
-                                onClose();
-                            }}
-                        >
-                            {name}
-                        </Button>
-                    ))}
-                </div>
+                {/* Label input */}
+                <input
+                    value={label}
+                    onChange={(e) => setLabel(e.target.value)}
+                    placeholder="Название для отображения"
+                    className="
+                        w-full
+                        border
+                        border-gray-300
+                        rounded-xl
+                        px-4 py-3
+                        outline-none
+                        focus:border-orange-500"/>
+
+                {/* Preview */}
+                {detected && (
+                    <div
+                        className="
+                            flex items-center gap-3
+                            border border-gray-200
+                            rounded-xl
+                            px-4 py-3">
+                        <FontAwesomeIcon
+                            icon={detected.icon}
+                            style={{ color: detected.color }}
+                            className="text-xl"/>
+                        <span className="font-medium">
+                            {label || detected.name}
+                        </span>
+                    </div>
+                )}
+
+                {/* Action */}
+                <Button
+                    className="w-full mt-auto"
+                    disabled={!url || !label || !detected}
+                    onClick={() => {
+                        console.log({
+                            url,
+                            label,
+                            social: detected?.name,
+                        });
+                        onClose();
+                    }}
+                >
+                    Добавить
+                </Button>
             </div>
         </div>
     );
