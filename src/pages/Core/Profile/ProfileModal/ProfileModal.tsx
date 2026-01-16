@@ -67,7 +67,7 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
                 </div>
 
                 {/* Content */}
-                <div className="mt-6 flex flex-col justify-center items-center gap-3 overflow-y-auto">
+                <div className="mt-6 flex flex-col gap-3 overflow-y-auto">
                     {socials.map(({ name, icon, color }) => (
                         <Button
                             key={name}
@@ -75,15 +75,14 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
                             iconColor={color}
                             className="
                                 flex
-                                w-full
-                                justify-center
+                                justify-start
                                 items-center
+
                                 gap-2
                                 py-3
-                                text-base
+                                text-xl
                               "
                             onClick={() => {
-                                console.log("Добавляем:", name);
                                 onClose();
                             }}
                         >
