@@ -39,6 +39,7 @@ const detectSocial = (url: string) => {
 const ProfileModal = ({ isOpen, onClose }: Props) => {
     const [url, setUrl] = useState("");
     const [label, setLabel] = useState("");
+    const MAX_LABEL_LENGTH = 100;
 
     const detected = useMemo(() => {
         const name = detectSocial(url);
@@ -52,7 +53,11 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
             {/* Overlay */}
             <div
                 className="absolute inset-0 bg-black/40"
-                onClick={onClose}/>
+                onClick={() => {
+                    setUrl("");
+                    setLabel("");
+                    onClose();
+                }}/>
 
             {/* Modal */}
             <div
@@ -93,6 +98,7 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
                     value={label}
                     onChange={(e) => setLabel(e.target.value)}
                     placeholder="Название для отображения"
+                    maxLength={MAX_LABEL_LENGTH}
                     className="
                         w-full
                         border
@@ -101,6 +107,9 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
                         px-4 py-3
                         outline-none
                         focus:border-orange-500"/>
+                <div className="text-right text-xs text-gray-400">
+                    {label.length} / {MAX_LABEL_LENGTH}
+                </div>
 
                 {/* Preview */}
                 {detected && (
@@ -130,6 +139,8 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
                             label,
                             social: detected?.name,
                         });
+                        setUrl("");
+                        setLabel("");
                         onClose();
                     }}
                 >
