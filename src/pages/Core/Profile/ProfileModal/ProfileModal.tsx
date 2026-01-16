@@ -70,6 +70,7 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
                   rounded-t-2xl sm:rounded-2xl
                   p-5 sm:p-6
                   flex flex-col gap-5
+                  animate-[fadeUp_0.3s_ease-out_forwards]
                 ">
                 {/* Header */}
                 <div className="flex items-center justify-between">
