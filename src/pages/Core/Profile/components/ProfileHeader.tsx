@@ -1,14 +1,10 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
+import Avatar from "../../../../components/Avatar/Avatar.tsx";
 
 const ProfileHeader = () => {
     return (
         <>
             <div className="flex flex-col items-center gap-4">
-                {/* Avatar */}
-                <FontAwesomeIcon icon={faUserCircle} className="text-6xl" />
-
-                {/* Username */}
+                <Avatar src="/public/Logo/MyContactsLogo_rounded.png"/>
                 <h2 className="text-lg font-medium">@username</h2>
             </div>
         </>
