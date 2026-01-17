@@ -1,30 +1,23 @@
 import { useState, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import {
-    faFacebook,
-    faGithub,
-    faLinkedin,
-    faTelegram,
-    faVk,
-    faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
 
 import Button from "../../../../components/Button/Button";
+import ModalOverlay from "./components/ModalOverlay.tsx";
+import ModalHeader from "./components/ModalHeader.tsx";
+import ModalInputFields from "./components/ModalInputFields.tsx";
+
+import {socials} from "./constants/socials.ts";
+import {modalContainerClass} from "./constants/ProfileModal.style.ts";
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
+    onAdd: (link: {
+        url: string;
+        label: string;
+        social: string;
+    }) => void;
 }
-
-const socials = [
-    { name: "Facebook", icon: faFacebook, color: "#1877F2" },
-    { name: "GitHub", icon: faGithub, color: "#181717" },
-    { name: "LinkedIn", icon: faLinkedin, color: "#0A66C2" },
-    { name: "Telegram", icon: faTelegram, color: "#229ED9" },
-    { name: "VK", icon: faVk, color: "#0077FF" },
-    { name: "YouTube", icon: faYoutube, color: "#FF0000" },
-];
 
 const detectSocial = (url: string) => {
     if (url.includes("facebook.com")) return "Facebook";
@@ -36,7 +29,7 @@ const detectSocial = (url: string) => {
     return null;
 };
 
-const ProfileModal = ({ isOpen, onClose }: Props) => {
+const ProfileModal = ({ isOpen, onClose, onAdd }: Props) => {
     const [url, setUrl] = useState("");
     const [label, setLabel] = useState("");
     const MAX_LABEL_LENGTH = 100;
@@ -50,67 +43,14 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
 
     return (
         <div className="fixed inset-0 z-[1000]">
-            {/* Overlay */}
-            <div
-                className="absolute inset-0 bg-black/40"
-                onClick={() => {
-                    setUrl("");
-                    setLabel("");
-                    onClose();
-                }}/>
+            <ModalOverlay setUrl={setUrl} setLabel={setLabel} onClose={onClose}/>
 
             {/* Modal */}
-            <div
-                className="
-                  fixed bottom-0 left-0 right-0
-                  sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2
-                  w-full sm:w-[420px]
-                  h-[85vh] sm:h-auto
-                  bg-white
-                  rounded-t-2xl sm:rounded-2xl
-                  p-5 sm:p-6
-                  flex flex-col gap-5
-                  animate-[fadeUp_0.3s_ease-out_forwards]
-                ">
-                {/* Header */}
-                <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-medium">Добавить ссылку</h2>
-                    <button onClick={onClose}>
-                        <FontAwesomeIcon icon={faXmark} className="text-xl text-gray-400" />
-                    </button>
-                </div>
+            <div className={modalContainerClass}>
+                <ModalHeader onClose={onClose}/>
 
-                {/* URL input */}
-                <input
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    placeholder="Вставьте ссылку"
-                    className="
-                        w-full
-                        border
-                        border-gray-300
-                        rounded-xl
-                        px-4 py-3
-                        outline-none
-                        focus:border-orange-500"/>
-
-                {/* Label input */}
-                <input
-                    value={label}
-                    onChange={(e) => setLabel(e.target.value)}
-                    placeholder="Название для отображения"
-                    maxLength={MAX_LABEL_LENGTH}
-                    className="
-                        w-full
-                        border
-                        border-gray-300
-                        rounded-xl
-                        px-4 py-3
-                        outline-none
-                        focus:border-orange-500"/>
-                <div className="text-right text-xs text-gray-400">
-                    {label.length} / {MAX_LABEL_LENGTH}
-                </div>
+                <ModalInputFields setLabel={setLabel} setUrl={setUrl} label={label}
+                                  url={url} MAX_LABEL_LENGTH={MAX_LABEL_LENGTH} />
 
                 {/* Preview */}
                 {detected && (
@@ -135,16 +75,17 @@ const ProfileModal = ({ isOpen, onClose }: Props) => {
                     className="w-full mt-auto"
                     disabled={!url || !label || !detected}
                     onClick={() => {
-                        console.log({
+                        if (!detected) return;
+
+                        onAdd({
                             url,
                             label,
-                            social: detected?.name,
+                            social: detected.name,
                         });
                         setUrl("");
                         setLabel("");
                         onClose();
-                    }}
-                >
+                    }}>
                     Добавить
                 </Button>
             </div>
