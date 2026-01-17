@@ -1,9 +1,9 @@
 import {useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Button from "../../../components/Button/Button.tsx";
 import ProfileModal from "./ProfileModal/ProfileModal.tsx";
 import ProfileHeader from "./components/ProfileHeader.tsx";
 import type {ProfileLink} from "./constants/ProfileLink.ts";
+import Card from "../../../components/Card/Card";
 
 const Profile = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -34,34 +34,25 @@ const Profile = () => {
                         </p>
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-3 mt-6">
+                    <div className="flex flex-col gap-3 mt-6 items-center">
                         {links.map((link, index) => (
-                            <a
+                            <Card
                                 key={index}
-                                href={link.url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="
-                                flex items-center gap-3
-                                bg-white
-                                border border-gray-200
-                                rounded-xl
-                                px-4 py-3
-                                hover:bg-gray-50
-                                transition
-                            ">
-
-                                <FontAwesomeIcon
-                                    icon={link.icon}
-                                    style={{ color: link.color }}
-                                    className="text-xl"
-                                />
-                    <span className="font-medium">
-                        {link.label}
-                    </span>
-                            </a>
+                                label={link.label}
+                                url={link.url}
+                                icon={link.icon}
+                                iconColor={link.color}
+                                onEdit={() => {
+                                    console.log("edit", link);
+                                }}
+                                onDelete={() => {
+                                    setLinks(prev => prev.filter((_, i) => i !== index));
+                                }}
+                                className="w-full max-w-md"
+                            />
                         ))}
                     </div>
+
                 )}
             </div>
             <ProfileModal onAdd={handleAddLink} isOpen={isOpen} onClose={() => setIsOpen(false)} />
