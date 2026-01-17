@@ -8,6 +8,7 @@ import ModalInputFields from "./components/ModalInputFields.tsx";
 
 import {socials} from "./constants/socials.ts";
 import {modalContainerClass} from "./constants/ProfileModal.style.ts";
+import type {IconDefinition} from "@fortawesome/fontawesome-svg-core";
 
 interface Props {
     isOpen: boolean;
@@ -16,6 +17,8 @@ interface Props {
         url: string;
         label: string;
         social: string;
+        icon: IconDefinition;
+        color: string;
     }) => void;
 }
 
@@ -81,6 +84,8 @@ const ProfileModal = ({ isOpen, onClose, onAdd }: Props) => {
                             url,
                             label,
                             social: detected.name,
+                            icon: detected.icon,
+                            color: detected.color,
                         });
                         setUrl("");
                         setLabel("");

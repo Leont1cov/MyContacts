@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Button from "../../../components/Button/Button.tsx";
 import ProfileModal from "./ProfileModal/ProfileModal.tsx";
 import ProfileHeader from "./components/ProfileHeader.tsx";
@@ -49,6 +50,12 @@ const Profile = () => {
                                 hover:bg-gray-50
                                 transition
                             ">
+
+                                <FontAwesomeIcon
+                                    icon={link.icon}
+                                    style={{ color: link.color }}
+                                    className="text-xl"
+                                />
                     <span className="font-medium">
                         {link.label}
                     </span>
