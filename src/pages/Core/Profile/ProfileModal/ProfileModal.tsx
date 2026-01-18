@@ -45,10 +45,13 @@ const ProfileModal = ({ isOpen, onClose, onAdd, editLink }: Props) => {
     }, [url]);
 
     useEffect(() => {
-        if (editLink) {
-            setUrl(editLink.url);
-            setLabel(editLink.label);
+        const handler = () => {
+            if (editLink) {
+                setUrl(editLink.url);
+                setLabel(editLink.label);
+            }
         }
+        window.addEventListener("resize", handler);
     }, [editLink]);
 
     if (!isOpen) return null;
