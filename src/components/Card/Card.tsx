@@ -57,11 +57,11 @@ const Card = ({
 
             {/* ACTIONS */}
             {(onEdit || onDelete) && (
-                <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition">
+                <div className="flex gap-3">
                     {onEdit && (
                         <button
                             onClick={onEdit}
-                            className="text-gray-400 hover:text-gray-700"
+                            className="text-gray-400 hover:text-gray-700 transition duration-100 ease-in"
                         >
                             <FontAwesomeIcon icon={faPen} />
                         </button>
@@ -70,7 +70,7 @@ const Card = ({
                     {onDelete && (
                         <button
                             onClick={onDelete}
-                            className="text-gray-400 hover:text-red-500"
+                            className="text-gray-400 hover:text-red-500 transition duration-100 ease-in"
                         >
                             <FontAwesomeIcon icon={faTrash} />
                         </button>
