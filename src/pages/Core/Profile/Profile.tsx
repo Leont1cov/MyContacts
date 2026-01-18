@@ -8,9 +8,17 @@ import Card from "../../../components/Card/Card";
 const Profile = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [links, setLinks] = useState<ProfileLink[]>([]);
+    const [editIndex, setEditIndex] = useState<number | null>(null);
 
-    const handleAddLink = (link: ProfileLink) => {
-        setLinks(prev => [...prev, link]);
+    const handleSaveLink = (link: ProfileLink) => {
+        if (editIndex !== null) {
+            setLinks(prev =>
+                prev.map((item, i) => (i === editIndex ? link : item))
+            );
+            setEditIndex(null);
+        } else {
+            setLinks(prev => [...prev, link]);
+        }
     };
 
     return (
@@ -43,7 +51,8 @@ const Profile = () => {
                                 icon={link.icon}
                                 iconColor={link.color}
                                 onEdit={() => {
-                                    console.log("edit", link);
+                                    setEditIndex(index);
+                                    setIsOpen(true);
                                 }}
                                 onDelete={() => {
                                     setLinks(prev => prev.filter((_, i) => i !== index));
@@ -55,7 +64,8 @@ const Profile = () => {
 
                 )}
             </div>
-            <ProfileModal onAdd={handleAddLink} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+            <ProfileModal key={editIndex ?? "create"} onAdd={handleSaveLink} editLink={editIndex !== null ? links[editIndex] : null}
+                          isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Button from "../../../../components/Button/Button";
@@ -9,6 +9,7 @@ import ModalInputFields from "./components/ModalInputFields.tsx";
 import {socials} from "./constants/socials.ts";
 import {modalContainerClass} from "./constants/ProfileModal.style.ts";
 import type {IconDefinition} from "@fortawesome/fontawesome-svg-core";
+import type {ProfileLink} from "../constants/ProfileLink.ts";
 
 interface Props {
     isOpen: boolean;
@@ -20,6 +21,7 @@ interface Props {
         icon: IconDefinition;
         color: string;
     }) => void;
+    editLink: ProfileLink | null;
 }
 
 const detectSocial = (url: string) => {
@@ -32,15 +34,22 @@ const detectSocial = (url: string) => {
     return null;
 };
 
-const ProfileModal = ({ isOpen, onClose, onAdd }: Props) => {
-    const [url, setUrl] = useState("");
-    const [label, setLabel] = useState("");
+const ProfileModal = ({ isOpen, onClose, onAdd, editLink }: Props) => {
+    const [url, setUrl] = useState(editLink?.url ?? "");
+    const [label, setLabel] = useState(editLink?.label ?? "");
     const MAX_LABEL_LENGTH = 100;
 
     const detected = useMemo(() => {
         const name = detectSocial(url);
         return socials.find(s => s.name === name) || null;
     }, [url]);
+
+    useEffect(() => {
+        if (editLink) {
+            setUrl(editLink.url);
+            setLabel(editLink.label);
+        }
+    }, [editLink]);
 
     if (!isOpen) return null;
 
