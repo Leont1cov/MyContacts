@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Hero = () => {
     return (
         <>
-            <div className="flex flex-col justify-center items-center text-center mt-20 px-5 sm:px-10 lg:px-30 gap-4 bg-white">
+            <div className="flex flex-col justify-center items-center text-center mt-40 px-5 sm:px-10 lg:px-30 gap-4 bg-white">
                 {/* Заголовок */}
                 <ShinyText
                     text="MyContacts"
