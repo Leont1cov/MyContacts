@@ -18,26 +18,34 @@ const About = () => {
         >
 
             <div className="relative w-full max-w-md mx-auto">
-                <div className="
-                    relative
-                    aspect-[9/16]
-                    rounded-2xl
-                    overflow-hidden
-                    bg-black
-                    shadow-xl
-                    ring-1 ring-black/10
-                ">
-                    {/*TODO: Вставить место для видео*/}
-                    <video
-                        src="/path/to/demo.mp4"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="w-full h-full object-cover"
+                <div className="absolute inset-0 -z-10 rounded-[32px] bg-gradient-to-b from-white/40 to-transparent blur-2xl" />
+
+                <div
+                    className="
+                        relative
+                        aspect-[9/16]
+                        rounded-[28px]
+                        overflow-hidden
+                        bg-neutral-900
+                        shadow-[0_30px_80px_-20px_rgba(0,0,0,0.4)]
+                        ring-1 ring-white/10
+                    "
+                >
+                    <img
+                        src="/images/screen.png"
+                        alt="App preview"
+                        className="
+                            w-full
+                            h-full
+                            object-cover
+                            select-none
+                        "
                     />
+
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent" />
                 </div>
             </div>
+
 
             <div className="w-full lg:w-1/2 flex flex-col justify-center gap-4">
                 <h2 className="text-2xl font-semibold leading-snug max-w-lg">
