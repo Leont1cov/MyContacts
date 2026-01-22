@@ -1,23 +1,19 @@
 import {useEffect, useState} from "react";
 import type {ProfileLink} from "../constants/ProfileLink.ts";
 import Card from "../../../../components/Card/Card.tsx";
+import ProfileHeader from "../components/ProfileHeader.tsx";
 
 const STORAGE_KEY = "profile_links";
 
 const ProfilePublic = () => {
-    const [links, setLinks] = useState<ProfileLink[]>([]);
+    const [links] = useState<ProfileLink[]>(() => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : [];
+    });
 
     useEffect(() => {
-        const saved = localStorage.getItem(STORAGE_KEY);
-
-        const handler = () => {
-            if (saved) {
-                setLinks(JSON.parse(saved));
-            }
-        }
-
-        window.addEventListener("resize", handler);
-    }, [])
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+    }, [links]);
 
     if (!links.length) {
         return (
@@ -29,6 +25,8 @@ const ProfilePublic = () => {
 
     return (
         <div className="min-h-screen bg-[#fafafa] flex flex-col items-center gap-4 p-6">
+            <ProfileHeader/>
+
             {links.map((link, index) => (
                 <Card
                     key={index}

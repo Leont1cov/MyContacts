@@ -1,14 +1,23 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Button from "../../../components/Button/Button.tsx";
 import ProfileModal from "./ProfileModal/ProfileModal.tsx";
 import ProfileHeader from "./components/ProfileHeader.tsx";
 import type {ProfileLink} from "./constants/ProfileLink.ts";
 import Card from "../../../components/Card/Card";
 
+const STORAGE_KEY = "profile_links";
+
 const Profile = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [links, setLinks] = useState<ProfileLink[]>([]);
+    const [links, setLinks] = useState<ProfileLink[]>(() => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : [];
+    });
     const [editIndex, setEditIndex] = useState<number | null>(null);
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+    }, [links]);
 
     const handleSaveLink = (link: ProfileLink) => {
         if (editIndex !== null) {
