@@ -1,7 +1,9 @@
+import Profile from "./Profile/Profile.tsx";
+
 const Core = () => {
     return (
         <>
-            <h1>Core</h1>
+            <Profile />
         </>
     )
 }
