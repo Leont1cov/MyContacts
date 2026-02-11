@@ -40,10 +40,10 @@ const Header = () => {
 
                 {/* Navigation */}
                 <div className="hidden lg:flex gap-10 items-center">
-                    <a className="font-medium hover:text-orange-700 transition duration-200 ease-in-out" href="#">
+                    <a className="font-medium hover:text-orange-700 transition duration-200 ease-in-out" href="#about">
                         О Приложении
                     </a>
-                    <a className="font-medium hover:text-orange-700 transition duration-200 ease-in-out" href="#">
+                    <a className="font-medium hover:text-orange-700 transition duration-200 ease-in-out" href="#contacts">
                         Контакты
                     </a>
                 </div>

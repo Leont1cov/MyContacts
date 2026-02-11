@@ -9,6 +9,7 @@ const About = () => {
     return (
         <section
             ref={ref}
+            id="about"
             className={`
             flex flex-col lg:flex-row items-center justify-center mt-32 lg:mt-40
             px-5 sm:px-10 lg:px-30 gap-10 bg-white
