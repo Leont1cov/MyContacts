@@ -56,11 +56,7 @@ const Header = () => {
                         <FontAwesomeIcon icon={faBurger} />
                     </Button>
 
-                    <Button className="hidden lg:block" type="button">
-                        RU
-                    </Button>
-
-                    <a className="hidden lg:block" href="#">
+                    <a className="hidden lg:block" href="https://github.com/Leont1cov/MyContacts" target="_blank">
                         <FontAwesomeIcon
                             className="text-2xl hover:text-orange-700 transition duration-200 ease-in-out"
                             icon={faGithub}
