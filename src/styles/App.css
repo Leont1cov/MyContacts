@@ -1,6 +1,10 @@
 @import "./body.css";
 @import "tailwindcss";
 
+html {
+    scroll-behavior: smooth;
+}
+
 @keyframes fadeUp {
     from {
         opacity: 0;

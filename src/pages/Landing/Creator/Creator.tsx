@@ -9,7 +9,7 @@ const Creator = () => {
 
     return (
         <>
-            <section ref={ref}   className={`
+            <section ref={ref} id="contacts"  className={`
                 w-full flex justify-center py-20 px-5 sm:px-10
                 transition-all duration-700 ease-out
                 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
