@@ -44,7 +44,7 @@ const Footer = () => {
 
                     <div className="flex items-center gap-5 text-xl text-gray-600">
                         <a
-                            href="https://github.com/Leont1cov?tab=repositories"
+                            href="https://github.com/Leont1cov/MyContacts"
                             target="_blank"
                             rel="noreferrer"
                             className="hover:text-black transition"
