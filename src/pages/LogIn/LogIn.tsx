@@ -2,6 +2,7 @@ import Button from "../../components/Button/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { superbase } from "../../Base/superbaseClient.ts";
+import toast from "react-hot-toast";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -14,8 +15,8 @@ const Login = () => {
         setLoading(true);
 
         const { error } = await superbase.auth.signUp({ email, password });
-        if (error) alert(error.message);
-        else alert("Login successful!");
+        if (error) toast.error(error.message);
+        else toast.loading("Пожалуйста, подтвердите email в письме 📩");
         setLoading(false);
     }
 
@@ -24,8 +25,9 @@ const Login = () => {
         setLoading(true);
         const { data, error } = await superbase.auth.signInWithPassword({ email, password });
         if (error) {
-            alert(error.message);
+            toast.error(error.message);
         }  else if (data?.user) {
+            toast.success("Добро пожаловать!");
             navigate("/app");
         }
         setLoading(false);
