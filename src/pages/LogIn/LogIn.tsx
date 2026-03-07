@@ -1,18 +1,50 @@
-import Button from "../../components/Button/Button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { superbase } from "../../Base/superbaseClient.ts";
+import toast from "react-hot-toast";
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleSignUp = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+
+        const { error } = await superbase.auth.signUp({ email, password });
+        if (error) toast.error(error.message);
+        else toast.loading("Пожалуйста, подтвердите email в письме 📩");
+        setLoading(false);
+    }
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        const { data, error } = await superbase.auth.signInWithPassword({ email, password });
+        if (error) {
+            toast.error(error.message);
+        }  else if (data?.user) {
+            toast.success("Добро пожаловать!");
+            navigate("/app");
+        }
+        setLoading(false);
+    }
+
     return (
         <div className="w-screen min-h-screen flex bg-[#fafafa]">
 
             {/* LEFT — CONTENT */}
-            <div className="
+            <div
+                className="
                 flex flex-col justify-center items-center
                 w-full lg:w-1/2
                 px-6 sm:px-10
-            ">
+            "
+            >
                 {/* Logo */}
                 <div className="mb-10">
-                    {/* ТУТ ЛОГОТИП */}
                     <img
                         src="/Logo/MyContactsLogo_tranparent.png"
                         alt="MyContacts"
@@ -31,24 +63,81 @@ const Login = () => {
                     </p>
                 </div>
 
-                {/* Login Button */}
-                <Button
-                    className="
-                        w-full max-w-sm
-                        flex items-center justify-center gap-3
-                        bg-black text-white
-                        hover:bg-gray-900
-                    "
-                    onClick={() => {
-                        // TODO: Yandex OAuth
-                        console.log("Login with Yandex");
-                    }}
+                {/* FORM */}
+                <form
+                    onSubmit={handleLogin}
+                    className="w-full max-w-sm flex flex-col gap-4"
                 >
-                    {/* Можно потом заменить на иконку Яндекса */}
-                    Войти через Яндекс
-                </Button>
+                    {/* Email */}
+                    <input
+                        type="email"
+                        placeholder="Почта"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="
+                            w-full
+                            px-4 py-3
+                            border border-gray-200
+                            rounded-lg
+                            text-sm
+                            outline-none
+                            focus:border-black
+                        "
+                    />
 
-                {/* Footer text */}
+                    {/* Password */}
+                    <input
+                        type="password"
+                        placeholder="Пароль"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className="
+                            w-full
+                            px-4 py-3
+                            border border-gray-200
+                            rounded-lg
+                            text-sm
+                            outline-none
+                            focus:border-black
+                        "
+                    />
+
+                    {/* Login Button */}
+                    <button
+                        type="submit"
+                        // disabled={loading}
+                        className="
+                          text-sm font-medium text-white
+                        bg-black
+                        border border-black
+                        rounded-md
+                        px-4 py-2
+                        hover:bg-gray-900
+                        transition
+                        "
+                    >
+                        {loading ? "Загрузка..." : "Войти"}
+                    </button>
+
+                    {/* Sign up */}
+                    <button
+                        type="button"
+                        onClick={handleSignUp}
+                        className="
+                            text-sm text-gray-700
+                            border border-gray-300
+                            rounded-md
+                            px-4 py-2
+                            hover:border-gray-400 hover:bg-gray-50
+                            transition
+                          ">
+                        Создать аккаунт
+                    </button>
+                </form>
+
+                {/* Footer */}
                 <p className="mt-6 text-xs text-gray-400 text-center">
                     Продолжая, вы соглашаетесь с условиями использования
                 </p>
