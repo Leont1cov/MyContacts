@@ -1,6 +1,30 @@
 import Button from "../../components/Button/Button";
+import { useState } from "react";
+import { superbase } from "../../Base/superbaseClient.ts";
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleSignUp = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+
+        const { error } = await superbase.auth.signUp({ email, password });
+        if (error) alert(error.message);
+        else alert("Login successful!");
+        setLoading(false);
+    }
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        const { error } = await superbase.auth.signInWithPassword({ email, password });
+        if (error) alert(error.message);
+        setLoading(false);
+    }
+
     return (
         <div className="w-screen min-h-screen flex bg-[#fafafa]">
 
