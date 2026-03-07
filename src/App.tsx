@@ -13,7 +13,6 @@ function App() {
                 <Route path="/" element={<Landing/>} />
                 <Route path="/login" element={<Login/>} />
                 <Route path="/app" element={<Core/>}/>
-
                 <Route path="/public" element={<ProfilePublic/>}/>
             </Routes>
         </>
