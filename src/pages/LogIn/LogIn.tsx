@@ -1,4 +1,3 @@
-import Button from "../../components/Button/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { superbase } from "../../Base/superbaseClient.ts";
@@ -106,28 +105,34 @@ const Login = () => {
                     />
 
                     {/* Login Button */}
-                    <Button
+                    <button
                         type="submit"
                         // disabled={loading}
                         className="
-                            w-full
-                            flex items-center justify-center
-                            bg-black text-white
-                            hover:bg-gray-900
+                          text-sm font-medium text-white
+                        bg-black
+                        border border-black
+                        rounded-md
+                        px-4 py-2
+                        hover:bg-gray-900
+                        transition
                         "
                     >
                         {loading ? "Загрузка..." : "Войти"}
-                    </Button>
+                    </button>
 
                     {/* Sign up */}
                     <button
                         type="button"
                         onClick={handleSignUp}
                         className="
-                            text-sm text-gray-500
-                            hover:text-black
-                        "
-                    >
+                            text-sm text-gray-700
+                            border border-gray-300
+                            rounded-md
+                            px-4 py-2
+                            hover:border-gray-400 hover:bg-gray-50
+                            transition
+                          ">
                         Создать аккаунт
                     </button>
                 </form>
