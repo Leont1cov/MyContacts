@@ -1,11 +1,13 @@
 import Button from "../../components/Button/Button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { superbase } from "../../Base/superbaseClient.ts";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -20,8 +22,12 @@ const Login = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        const { error } = await superbase.auth.signInWithPassword({ email, password });
-        if (error) alert(error.message);
+        const { data, error } = await superbase.auth.signInWithPassword({ email, password });
+        if (error) {
+            alert(error.message);
+        }  else if (data?.user) {
+            navigate("/app");
+        }
         setLoading(false);
     }
 
