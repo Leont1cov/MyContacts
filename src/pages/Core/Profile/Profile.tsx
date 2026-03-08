@@ -16,7 +16,7 @@ const Profile = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [editIndex, setEditIndex] = useState<number | null>(null);
 
-    // 2️⃣ Функция загрузки ссылок из Supabase
+    // Функция загрузки ссылок из Supabase
     async function fetchLinks(userId: string) {
         setLoading(true);
         const { data, error } = await supabase
