@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../Base/supabaseClient.ts";
 import type { User } from "@supabase/supabase-js";
 import Button from "../../../components/Button/Button.tsx";
@@ -15,6 +16,7 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [editIndex, setEditIndex] = useState<number | null>(null);
+    const navigate = useNavigate();
 
     // Функция загрузки ссылок из Supabase
     async function fetchLinks(userId: string) {
@@ -124,13 +126,27 @@ const Profile = () => {
                 <ProfileHeader />
 
                 {/* MAIN ACTION */}
-                <div className="flex justify-center">
+                <div className="flex flex-col items-center gap-2.5 justify-center">
                     <Button
                         onClick={() => setIsOpen(true)}
                         className="w-full max-w-md"
                     >
                         Добавить
                     </Button>
+
+                    {user && (
+                        <Button
+                            onClick={() => navigate(`/public/${user.id}`)}
+                            className="
+                            w-full max-w-md
+                            bg-gradient-to-r from-orange-700 to-orange-600 text-white
+                            rounded-xl
+                            transition-all duration-200
+                            hover: bg-indigo-600"
+                        >
+                            Открыть публичную страницу
+                        </Button>
+                    )}
                 </div>
 
                 {/* EMPTY STATE */}

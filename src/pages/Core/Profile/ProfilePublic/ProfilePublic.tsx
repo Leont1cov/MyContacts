@@ -4,6 +4,8 @@ import type { ProfileLink } from "../constants/ProfileLink.ts";
 import { supabase } from "../../../../Base/supabaseClient.ts";
 import Card from "../../../../components/Card/Card.tsx";
 import ProfileHeader from "../components/ProfileHeader.tsx";
+import { socials } from "../ProfileModal/constants/socials.ts";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 const ProfilePublic = () => {
     const { userId } = useParams(); // ID пользователя из URL
@@ -24,13 +26,20 @@ const ProfilePublic = () => {
                 console.error("Ошибка при получении ссылок:", error.message);
             } else {
                 // Преобразуем данные Supabase в формат ProfileLink
-                const fetchedLinks: ProfileLink[] = (data as any[] || []).map(link => ({
-                    label: link.title,
-                    url: link.url,
-                    icon: link.icon || "",
-                    color: link.color || "#000",
-                    social: link.social || "",
-                }));
+                const fetchedLinks: ProfileLink[] = (data ?? []).map(link => {
+                    const socialItem = socials.find(
+                        s => s.name.toLowerCase() === (link.social ?? "").toLowerCase()
+                    );
+
+                    return {
+                        id: link.id,
+                        label: link.title,
+                        url: link.url,
+                        icon: socialItem?.icon ?? faLink,
+                        color: socialItem?.color ?? "#000",
+                        social: link.social ?? "",
+                    };
+                });
 
                 setLinks(fetchedLinks);
             }
@@ -40,6 +49,7 @@ const ProfilePublic = () => {
 
         fetchLinks();
     }, [userId]);
+
 
     if (loading) {
         return (
