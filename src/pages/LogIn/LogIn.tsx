@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { superbase } from "../../Base/superbaseClient.ts";
+import { supabase } from "../../Base/supabaseClient.ts";
 import toast from "react-hot-toast";
 
 const Login = () => {
@@ -13,7 +13,7 @@ const Login = () => {
         e.preventDefault();
         setLoading(true);
 
-        const { error } = await superbase.auth.signUp({ email, password });
+        const { error } = await supabase.auth.signUp({ email, password });
         if (error) toast.error(error.message);
         else toast.loading("Пожалуйста, подтвердите email в письме 📩");
         setLoading(false);
@@ -22,7 +22,7 @@ const Login = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        const { data, error } = await superbase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) {
             toast.error(error.message);
         }  else if (data?.user) {
