@@ -123,7 +123,7 @@ const Profile = () => {
     return (
         <div className="min-h-screen bg-[#fafafa] flex justify-center">
             <div className="flex flex-col gap-5 w-full max-w-2xl px-5 py-10">
-                <ProfileHeader />
+                <ProfileHeader editable/>
 
                 {/* MAIN ACTION */}
                 <div className="flex flex-col items-center gap-2.5 justify-center">
