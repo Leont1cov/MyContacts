@@ -15,12 +15,20 @@ const ProfileHeader = ({ editable = false }: ProfileHeaderProps) => {
     const [avatar, setAvatar] = useState<string>("/public/Logo/MyContactsLogo_rounded.png");
 
     useEffect(() => {
-        const init = async () => {
+        const loadUser = async () => {
             const { data: { user } } = await supabase.auth.getUser();
-            if (!user) return;
+            if (user) {
+                setUser(user);
+            }
+        };
 
-            setUser(user);
+        loadUser();
+    }, []);
 
+    useEffect(() => {
+        if (!user) return;
+
+        const loadProfile = async () => {
             const { data, error } = await supabase
                 .from("profiles")
                 .select("username, avatar_url")
@@ -33,14 +41,11 @@ const ProfileHeader = ({ editable = false }: ProfileHeaderProps) => {
             }
 
             setUsername(data?.username || null);
-
-            setAvatar(
-                data?.avatar_url || "/Logo/MyContactsLogo_rounded.png"
-            );
+            setAvatar((data?.avatar_url || "/Logo/MyContactsLogo_rounded.png") + "?t=" + Date.now());
         };
 
-        init();
-    }, []);
+        loadProfile();
+    }, [user]);
 
     const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!user || !e.target.files?.length) return;
